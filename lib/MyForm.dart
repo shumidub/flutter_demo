@@ -56,7 +56,17 @@ class MyFormState extends State<MyForm> {
 
               RaisedButton(
                 onPressed: (){
-                  if (_formKey.currentState.validate()){
+                  String text;
+                  if (_gender == null) text = 'Select you gender';
+                  if (_agreement == false) text = text + '\nNeed accept agreement';
+
+                  if (text != null){
+                    Scaffold.of(context).showSnackBar(
+                        SnackBar(content: Text(text), backgroundColor : Colors.red[500])
+                    );
+                  }
+
+                  if (_formKey.currentState.validate() && text == null){
                     Scaffold.of(context).showSnackBar(
                       SnackBar(content: Text("Fields are succesfully filled!"), backgroundColor : Colors.green[500])
                     );
