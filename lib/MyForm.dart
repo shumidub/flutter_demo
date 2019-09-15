@@ -1,6 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_app/NewsBoxFavorite.dart';
 
 class MyForm extends StatefulWidget {
   @override
@@ -11,6 +10,7 @@ class MyForm extends StatefulWidget {
 
 class MyFormState extends State<MyForm> {
   final _formKey = GlobalKey<FormState>();
+  int _gender = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -19,12 +19,14 @@ class MyFormState extends State<MyForm> {
         child: Form(
             key: this._formKey,
             child: Column(children: <Widget>[
+
               Text('User name:', style: TextStyle(fontSize: 20.0)),
               // ignore: missing_return
               TextFormField(validator: (text) {
                 if (text.isEmpty) return "Field should be filled";
               }),
               SizedBox(height: 20.0),
+
               Text('Email:', style: TextStyle(fontSize: 20.0)),
               // ignore: missing_return
               TextFormField(validator: (text) {
@@ -35,11 +37,21 @@ class MyFormState extends State<MyForm> {
                 if (!regExp.hasMatch(text)) return "Please, enter correct email";
               }),
               SizedBox(height: 20.0),
+
+              Text('Gender:', style: TextStyle(fontSize: 20.0),),
+              Row(mainAxisAlignment : MainAxisAlignment.center, children: <Widget>[
+                Radio(value: 0, groupValue: _gender, onChanged: (int value) {setState(() { _gender = value;});}),
+                Text("Man"),
+                Radio(value: 1, groupValue: _gender, onChanged: (int value) {setState(() { _gender = value;});}),
+                Text("Woman")
+              ]),
+              Padding(padding: EdgeInsets.all(10.0)),
+
               RaisedButton(
                 onPressed: (){
                   if (_formKey.currentState.validate()){
                     Scaffold.of(context).showSnackBar(
-                      SnackBar(content: Text("Field succesfully filled!"), backgroundColor : Colors.green[500])
+                      SnackBar(content: Text("Fields are succesfully filled!"), backgroundColor : Colors.green[500])
                     );
                   }
                 },
