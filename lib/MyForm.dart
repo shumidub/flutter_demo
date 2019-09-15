@@ -10,7 +10,11 @@ class MyForm extends StatefulWidget {
 
 class MyFormState extends State<MyForm> {
   final _formKey = GlobalKey<FormState>();
-  int _gender = 0;
+  Gender _gender;
+
+  void _setGender(Gender gender) {
+    this._gender = gender;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -40,9 +44,9 @@ class MyFormState extends State<MyForm> {
 
               Text('Gender:', style: TextStyle(fontSize: 20.0),),
               Row(mainAxisAlignment : MainAxisAlignment.center, children: <Widget>[
-                Radio(value: 0, groupValue: _gender, onChanged: (int value) {setState(() { _gender = value;});}),
+                Radio(value: Gender.male, groupValue: _gender, onChanged: (Gender value) { this._setGender(value); setState(() {});}),
                 Text("Man"),
-                Radio(value: 1, groupValue: _gender, onChanged: (int value) {setState(() { _gender = value;});}),
+                Radio(value: Gender.female, groupValue: _gender, onChanged: (Gender value) { this._setGender(value); setState(() {});}),
                 Text("Woman")
               ]),
               Padding(padding: EdgeInsets.all(10.0)),
@@ -65,3 +69,5 @@ class MyFormState extends State<MyForm> {
     );
   }
 }
+
+enum Gender {male, female}
