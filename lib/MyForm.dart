@@ -11,6 +11,7 @@ class MyForm extends StatefulWidget {
 class MyFormState extends State<MyForm> {
   final _formKey = GlobalKey<FormState>();
   Gender _gender;
+  bool _agreement = false;
 
   void _setGender(Gender gender) {
     this._gender = gender;
@@ -44,12 +45,14 @@ class MyFormState extends State<MyForm> {
 
               Text('Gender:', style: TextStyle(fontSize: 20.0),),
               Row(mainAxisAlignment : MainAxisAlignment.center, children: <Widget>[
-                Radio(value: Gender.male, groupValue: _gender, onChanged: (Gender value) { this._setGender(value); setState(() {});}),
+                Radio(value: Gender.male, groupValue: _gender, onChanged: (Gender value) { _setGender(value); setState(() {});}),
                 Text("Man"),
-                Radio(value: Gender.female, groupValue: _gender, onChanged: (Gender value) { this._setGender(value); setState(() {});}),
+                Radio(value: Gender.female, groupValue: _gender, onChanged: (Gender value) { _setGender(value); setState(() {});}),
                 Text("Woman")
               ]),
-              Padding(padding: EdgeInsets.all(10.0)),
+              Padding(padding: EdgeInsets.only(top: 10.0)),
+
+              CheckboxListTile(value: _agreement, title: Text("Agreement"), onChanged: (bool value){ setState(() { _agreement = value; });}),
 
               RaisedButton(
                 onPressed: (){
